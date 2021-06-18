@@ -42,14 +42,14 @@ void PcapReader::initTimeIndexMap() {
   m_timeIndexMap.insert(std::pair<string,std::pair<int,int>>("PandarXT-16", std::pair<int,int>(559,553)));
 }
 
-void PcapReader::start(boost::function<void(const uint8_t*, const int, double timestamp)> callback) {
+void PcapReader::start(std::function<void(const uint8_t*, const int, double timestamp)> callback) {
   // LOG_FUNC();
   stop();
 
   this->callback = callback;
   loop           = true;
 
-  parse_thr_ = new boost::thread(boost::bind(&PcapReader::parsePcap, this));
+  parse_thr_ = new std::thread(std::bind(&PcapReader::parsePcap, this));
 }
 
 void PcapReader::stop() {

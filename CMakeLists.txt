@@ -1,10 +1,19 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 project(PandarGeneralSDK)
 
-find_package( Boost REQUIRED )
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
 find_package( PCL REQUIRED COMPONENTS common )
 
-set (CMAKE_CXX_FLAGS "-fPIC --std=c++11")
+set (CMAKE_CXX_FLAGS "-fPIC")
 
 add_subdirectory(src/PandarGeneralRaw)
 
@@ -12,7 +21,6 @@ include_directories(
     .
     include
     src/PandarGeneralRaw/include
-    ${Boost_INCLUDE_DIRS}
     ${PCL_INCLUDE_DIRS}
 )
 
@@ -24,7 +32,6 @@ add_library( ${PROJECT_NAME} SHARED
 
 target_link_libraries(${PROJECT_NAME} 
     PandarGeneral
-    ${Boost_LIBRARIES}
     ${PCL_IO_LIBRARIES}
     pcap
 )
@@ -37,7 +44,6 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
     target_link_libraries(PandarGeneralTest
         ${PROJECT_NAME}
-        ${Boost_LIBRARIES}
         ${PCL_IO_LIBRARIES}
     )
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})

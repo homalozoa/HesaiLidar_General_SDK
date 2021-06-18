@@ -14,3 +14,9 @@ PandarGeneralSDK_1.1.1
 ##modify
 1. support multiple sensors
 2. support GPS port not hard bind 
+
+星期五, 18, 六月 2021 15:51下午
+##version
+PandarGeneralSDK_1.1.2
+1. Support to C++ 14
+2. Remove dependency `Boost`

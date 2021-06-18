@@ -24,7 +24,7 @@
 
 #include <string>
 
-#include <boost/function.hpp>
+#include <functional>
 
 #include "pandarGeneral/point_types.h"
 #include "pandarGeneral/pandarGeneral_internal.h"
@@ -44,10 +44,10 @@ class PandarGeneral {
    *                          should be <real angle> * 100.
    */
   PandarGeneral(std::string device_ip, uint16_t lidar_port, uint16_t lidar_algorithm_port, uint16_t gps_port,
-            boost::function<void(boost::shared_ptr<PPointCloud>, double)>
+            std::function<void(std::shared_ptr<PPointCloud>, double)>
                 pcl_callback,
-            boost::function<void(HS_Object3D_Object_List*)> algorithm_callback,
-            boost::function<void(double)> gps_callback, uint16_t start_angle,
+            std::function<void(HS_Object3D_Object_List*)> algorithm_callback,
+            std::function<void(double)> gps_callback, uint16_t start_angle,
             int tz, int pcl_type, std::string lidar_type, std::string frame_id, std::string timestampType); // the default timestamp type is LiDAR time
 
   /**
@@ -60,7 +60,7 @@ class PandarGeneral {
    *        frame_id          The frame id of pcd
    */
   PandarGeneral(std::string pcap_path, \
-      boost::function<void(boost::shared_ptr<PPointCloud>, double)> pcl_callback, \
+      std::function<void(std::shared_ptr<PPointCloud>, double)> pcl_callback, \
       uint16_t start_angle, int tz, int pcl_type, std::string lidar_type, std::string frame_id, std::string timestampType); // the default timestamp type is LiDAR time
 
   /**
@@ -93,13 +93,13 @@ class PandarGeneral {
   /** @brief get major version.
   * @Return   ： major version
    */
-  int getMajorVersion();
+  void getMajorVersion();
 
   /**
   * @brief get minor version.
   * @Return   ： minor version
   */
-  int getMinorVersion();
+  void getMinorVersion();
 
  private:
   PandarGeneral_Internal *internal_;

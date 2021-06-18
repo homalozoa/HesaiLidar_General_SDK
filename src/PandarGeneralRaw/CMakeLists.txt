@@ -1,18 +1,27 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 project(PandarGeneral)
 
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
 
-find_package( Boost REQUIRED )
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
+find_package(Eigen3 REQUIRED)
 find_package(PCL REQUIRED COMPONENTS common)
 
-set (CMAKE_CXX_FLAGS "-fPIC --std=c++11")
+set (CMAKE_CXX_FLAGS "-fPIC")
 
 
 include_directories(
 	.
 	include
 	include/pandarGeneral
-	${Boost_INCLUDE_DIRS}
+	${EIGEN3_INCLUDE_DIR}
 	${PCL_INCLUDE_DIRS}
 )
 
@@ -21,11 +30,11 @@ add_library( ${PROJECT_NAME}
 	src/input.cc
 	src/pandarGeneral_internal.cc
 	src/pandarGeneral.cc
-        src/pcap_reader.cpp
+  src/pcap_reader.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
-		${Boost_LIBRARIES}
+		${EIGEN3_LIBRARIES}
 		${PCL_IO_LIBRARIES}
 )
 

@@ -28,9 +28,9 @@
  */
 PandarGeneral::PandarGeneral(
     std::string device_ip, uint16_t lidar_port, uint16_t lidar_algorithm_port, uint16_t gps_port,
-    boost::function<void(boost::shared_ptr<PPointCloud>, double)> pcl_callback,
-    boost::function<void(HS_Object3D_Object_List*)> algorithm_callback,
-    boost::function<void(double)> gps_callback, uint16_t start_angle, int tz,
+    std::function<void(std::shared_ptr<PPointCloud>, double)> pcl_callback,
+    std::function<void(HS_Object3D_Object_List*)> algorithm_callback,
+    std::function<void(double)> gps_callback, uint16_t start_angle, int tz,
     int pcl_type, std::string lidar_type, std::string frame_id, std::string timestampType) {
       // LOG_FUNC();
   internal_ =
@@ -48,7 +48,7 @@ PandarGeneral::PandarGeneral(
  */
 PandarGeneral::PandarGeneral(
     std::string pcap_path, \
-    boost::function<void(boost::shared_ptr<PPointCloud>, double)> pcl_callback,\
+    std::function<void(std::shared_ptr<PPointCloud>, double)> pcl_callback,\
     uint16_t start_angle, int tz, int pcl_type, std::string lidar_type, std::string frame_id, std::string timestampType) {
   internal_ = new PandarGeneral_Internal(pcap_path, pcl_callback, start_angle, \
       tz, pcl_type, lidar_type, frame_id, timestampType);
@@ -85,13 +85,13 @@ int PandarGeneral::Start() { return internal_->Start(); }
  */
 void PandarGeneral::Stop() { internal_->Stop(); }
 
-int PandarGeneral::getMajorVersion() {
+void PandarGeneral::getMajorVersion() {
   if (internal_) {
     internal_->getMajorVersion();
   }
 }
 
-int PandarGeneral::getMinorVersion() {
+void PandarGeneral::getMinorVersion() {
   if (internal_) {
     internal_->getMinorVersion();
   }
